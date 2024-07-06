@@ -3,8 +3,8 @@ pipeline {
     sshagent(credentials: ['steevi']){
       sh '''
         [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-          ssh-keyscan -t rsa,dsa 172.128.10.100 >> ~/.ssh/known_hosts
-          ssh steevi@172.128.10.100 ...
+          ssh-keyscan -t rsa,dsa 192.168.1.133 >> ~/.ssh/known_hosts
+          ssh steevi@192.168.1.133 ...
       '''
     }
   }
