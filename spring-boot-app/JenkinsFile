@@ -1,8 +1,11 @@
 pipeline {
-  agent {
-    docker {
-      image 'abhishekf5/maven-abhishek-docker-agent:v1'
-      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
+  node {
+    sshagent(credentials: ['steevi']){
+      sh '''
+        [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+          ssh-keyscan -t rsa,dsa 172.128.10.100 >> ~/.ssh/known_hosts
+          ssh steevi@172.128.10.100 ...
+      '''
     }
   }
   stages {
