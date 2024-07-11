@@ -1,12 +1,14 @@
 pipeline {
-  node {
-    sshagent(credentials: ['steevi']){
-      sh '''
-        [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-          ssh-keyscan -t rsa,dsa 192.168.1.133 >> ~/.ssh/known_hosts
-          ssh steevi@192.168.1.133 ...
-      '''
-    }
+  agent{
+    node {
+        sshagent(credentials: ['steevi']){
+          sh '''
+            [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+              ssh-keyscan -t rsa,dsa 192.168.1.133 >> ~/.ssh/known_hosts
+              ssh steevi@192.168.1.133 ...
+          '''
+        }
+      }
   }
   stages {
     stage('Checkout') {
