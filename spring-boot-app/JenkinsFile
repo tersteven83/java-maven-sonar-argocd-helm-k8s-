@@ -1,6 +1,10 @@
 pipeline {
   agent{
-    node {
+    label 'jk-agent-debian'
+  }
+  stages {
+    stage('Setup SSH') {
+      steps {
         sshagent(credentials: ['steevi']){
           sh '''
             [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
@@ -9,6 +13,7 @@ pipeline {
           '''
         }
       }
+    }
   }
   stages {
     stage('Checkout') {
