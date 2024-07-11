@@ -30,13 +30,13 @@ pipeline {
       environment {
         DOCKER_IMAGE = "steevi83/ultimate-cicd:${BUILD_NUMBER}"
         DOCKERFILE_LOCATION = "spring-boot-app/Dockerfile"
-        //REGISTRY_CREDENTIALS = credentials('docker-cred')
+        REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
       steps {
         script {
             sh 'cd spring-boot-app && docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${env.DOCKER_IMAGE}")
-            docker.withRegistry('', "docker-cred") {
+            docker.withRegistry('', env.REGIRSTRY_CREDENTIALS) {
                 dockerImage.push()
             }
         }
