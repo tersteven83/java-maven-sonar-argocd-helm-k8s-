@@ -3,17 +3,6 @@ pipeline {
     label 'jk-agent-debian'
   }
   stages {
-    //stage('Setup SSH') {
-      //steps {
-        //sshagent(credentials: ['steevi']){
-          //sh '''
-            //[ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-              //ssh-keyscan -t rsa,dsa 192.168.1.133 >> ~/.ssh/known_hosts
-            //  ssh steevi@192.168.1.133 ...
-          //'''
-        //}
-      //}
-    //}
     stage('Checkout') {
       steps {
         sh 'echo passed'
@@ -47,7 +36,7 @@ pipeline {
         script {
             sh 'cd spring-boot-app && docker build -t ${DOCKER_IMAGE} .'
             def dockerImage = docker.image("${env.DOCKER_IMAGE}")
-            docker.withRegistry('', "docker-cred") {  //par défaut docker hub
+            docker.withRegistry('', "docker-cred") {
                 dockerImage.push()
             }
         }
