@@ -1,17 +1,19 @@
 pipeline {
-  agent any
+  agent{
+    label 'jk-agent-debian'
+  }
   stages {
-    stage('Setup SSH') {
-      steps {
-        sshagent(credentials: ['steevi']){
-          sh '''
-            [ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
-              ssh-keyscan -t rsa,dsa 192.168.1.133 >> ~/.ssh/known_hosts
-              ssh steevi@192.168.1.133 ...
-          '''
-        }
-      }
-    }
+    //stage('Setup SSH') {
+      //steps {
+        //sshagent(credentials: ['steevi']){
+          //sh '''
+            //[ -d ~/.ssh ] || mkdir ~/.ssh && chmod 0700 ~/.ssh
+              //ssh-keyscan -t rsa,dsa 192.168.1.133 >> ~/.ssh/known_hosts
+            //  ssh steevi@192.168.1.133 ...
+          //'''
+        //}
+      //}
+    //}
     stage('Checkout') {
       steps {
         sh 'echo passed'
