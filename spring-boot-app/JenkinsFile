@@ -1,7 +1,5 @@
 pipeline {
-  agent{
-    label 'jk-agent-debian'
-  }
+  agent any
   stages {
     stage('Setup SSH') {
       steps {
